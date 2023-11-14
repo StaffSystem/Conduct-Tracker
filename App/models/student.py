@@ -34,7 +34,7 @@ class Student(User):
         "studentType": self.studentType,
         "yearOfStudy": self.yearOfStudy,
         "reviews": [review.to_json() for review in self.reviews],
-				"karmaScore": karma.score if karma else None,
+	"karmaScore": karma.score if karma else None,
         "karmaRank": karma.rank if karma else None,
     }
 
