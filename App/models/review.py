@@ -1,4 +1,5 @@
 from App.database import db
+from App.models.VotingStrategy import VotingStrategy
 from .student import Student
 from datetime import datetime
 from .karma import Karma
@@ -20,29 +21,14 @@ review_staff_downvoters = db.Table(
 class Review(db.Model):
   __tablename__ = 'review'
   ID = db.Column(db.Integer, primary_key=True)
-  reviewerID = db.Column(
-      db.String(10),
-      db.ForeignKey('staff.ID'))  #each review has 1 creator
+  reviewerID = db.Column(db.String(10),db.ForeignKey('staff.ID'))  #each review has 1 creator
 
   #create reverse relationship from Staff back to Review to access reviews created by a specific staff member
-  reviewer = db.relationship('Staff',
-                             backref=db.backref('reviews_created',
-                                                lazy='joined'),
-                             foreign_keys=[reviewerID])
-
+  reviewer = db.relationship('Staff',backref=db.backref('reviews_created', lazy='joined'),foreign_keys=[reviewerID])
   studentID = db.Column(db.String(10), db.ForeignKey('student.ID'))
 
-  staffUpvoters = db.relationship(
-      'Staff',
-      secondary=review_staff_upvoters,
-      backref=db.backref(
-          'reviews_upvoted',
-          lazy='joined'))  #for staff who have voted on the review
-
-  staffDownvoters = db.relationship(
-      'Staff',
-      secondary=review_staff_downvoters,
-      backref=db.backref(
+  staffUpvoters = db.relationship('Staff',secondary=review_staff_upvoters,backref=db.backref('reviews_upvoted',lazy='joined'))  #for staff who have voted on the review
+  staffDownvoters = db.relationship('Staff',secondary=review_staff_downvoters,backref=db.backref(
           'reviews_downvoted',
           lazy='joined'))  #for staff who have voted on the review
 
@@ -51,6 +37,7 @@ class Review(db.Model):
   isPositive = db.Column(db.Boolean, nullable=False)
   created = db.Column(db.DateTime, default=datetime.utcnow)
   comment = db.Column(db.String(400), nullable=False)
+  strategy=db.Column(VotingStrategy,nullable=True)
 
   # initialize the review. when it is created the date is automatically gotten and votes are at 0
   def __init__(self, reviewer, student, isPositive, comment):
@@ -148,12 +135,12 @@ class Review(db.Model):
         db.session.add(karma)  # Add the Karma record to the session
         db.session.flush()  # Ensure the Karma record gets an ID
         db.session.commit()
-        student.karmaID = karma.karmaID  # Set the student's karmaID to the new Karma record's ID
+      #  student.karmaID = karma.karmaID  # Set the student's karmaID to the new Karma record's ID
 
   # Update Karma for the student
-      student_karma = Karma.query.get(student.karmaID)
-      student_karma.calculateScore(student)
-      student_karma.updateRank()
+    #student_karma = Karma.query.get(student.karmaID)
+    #student_karma.calculateScore(student)
+    #student_karma.updateRank()
 
     return self.downvotes
 
