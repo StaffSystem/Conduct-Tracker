@@ -1,23 +1,26 @@
 from App.database import db
 from .user import User
 
-
-class Student(User):
+class Student(db.Model):
 	__tablename__ = 'student'
 	ID = db.Column(db.String(10), primary_key=True)
+	firstname = db.Column(db.String(120), nullable=False)
+	lastname = db.Column(db.String(120), nullable=False)
 	contact = db.Column(db.String(30), nullable=False)
 	studentType = db.Column(db.String(30))  #full-time, part-time or evening
-	yearOfStudy = db.Column(db.Integer, nullable=False)
+	program = db.Column(db.String(120), nullable=False)
+	programBegan = db.Column(db.DateTime, default=datetime.utcnow)
 	reviews = db.relationship('Review', backref='student', lazy='joined')
-	karmaID = db.Column(db.Integer, db.ForeignKey('karma.karmaID'))
+	karma = db.Column(db.Float, nullable=True)
 
   #When student is newly created there would be no reviews or karma yet
-	def __init__(self, studentID, firstname, lastname, password, contact, studentType, yearofStudy):
-		super().__init__(firstname, lastname, password)
+	def __init__(self, studentID, firstname, lastname, contact, studentType, program):
 		self.ID = studentID
+		self.firstname = firstname
+		self.lastname = lastname
 		self.contact = contact
 		self.studentType = studentType
-		self.yearOfStudy = yearofStudy
+		self.programBegan = programBegan
 		self.reviews = []
 	
 	def get_id(self):
@@ -32,10 +35,9 @@ class Student(User):
         "lastname": self.lastname,
         "contact": self.contact,
         "studentType": self.studentType,
-        "yearOfStudy": self.yearOfStudy,
-        "reviews": [review.to_json() for review in self.reviews],
-	"karmaScore": karma.score if karma else None,
-        "karmaRank": karma.rank if karma else None,
+        "programBegan": self.programBegan,
+        "reviews": [review.to_json() for review in self.reviews], 
+		"karmaScore": karma.score if karma else None,
     }
 
 #get karma record from the karma table using the karmaID attached to the student

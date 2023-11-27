@@ -27,17 +27,15 @@ class Review(db.Model):
   reviewer = db.relationship('Staff',backref=db.backref('reviews_created', lazy='joined'),foreign_keys=[reviewerID])
   studentID = db.Column(db.String(10), db.ForeignKey('student.ID'))
 
-  staffUpvoters = db.relationship('Staff',secondary=review_staff_upvoters,backref=db.backref('reviews_upvoted',lazy='joined'))  #for staff who have voted on the review
-  staffDownvoters = db.relationship('Staff',secondary=review_staff_downvoters,backref=db.backref(
-          'reviews_downvoted',
-          lazy='joined'))  #for staff who have voted on the review
+  staffUpvoters = db.relationship('Staff',secondary=review_staff_upvoters,backref=db.backref('reviews_upvoted',lazy='joined'))  
+  staffDownvoters = db.relationship('Staff',secondary=review_staff_downvoters,backref=db.backref('reviews_downvoted',lazy='joined'))  
 
   upvotes = db.Column(db.Integer, nullable=False)
   downvotes = db.Column(db.Integer, nullable=False)
   isPositive = db.Column(db.Boolean, nullable=False)
   created = db.Column(db.DateTime, default=datetime.utcnow)
   comment = db.Column(db.String(400), nullable=False)
-  strategy=db.Column(VotingStrategy,nullable=True)
+  strategy = db.Column(VotingStrategy,nullable=True)
 
 
   # initialize the review. when it is created the date is automatically gotten and votes are at 0
@@ -97,8 +95,7 @@ class Review(db.Model):
         "reviewer": self.reviewer.firstname + " " + self.reviewer.lastname,
         "studentID": self.student.ID,
         "studentName": self.student.firstname + " " + self.student.lastname,
-        "created":
-        self.created.strftime("%d-%m-%Y %H:%M"),  #format the date/time
+        "created": self.created.strftime("%d-%m-%Y %H:%M"),  #format the date/time
         "isPositive": self.isPositive,
         "upvotes": self.upvotes,
         "downvotes": self.downvotes,

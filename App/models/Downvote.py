@@ -5,7 +5,6 @@ class DownVote(VotingStrategy):
     def vote(staff):
         if staff in self.staffDownvoters:  # If they downvoted the review already, return current votes
             return self.downvotes
-
         else:
             if staff not in self.staffDownvoters:  #if staff has not downvoted allow the vote
                 self.downvotes += 1

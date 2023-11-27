@@ -66,6 +66,7 @@ class Staff(db.Model):
       # If no matching students are found, return an empty list
       return []
 
+
   #return staff details on json format
   def to_json(self):
     return {
@@ -76,24 +77,3 @@ class Staff(db.Model):
         "teachingExperience": self.teachingExperience
     } 
 
-
-#get student karma rankings from highest rank to lowest based on scores
-  def getStudentRankings(self):
-    students = db.session.query(Student, Karma)\
-                .join(Karma, Student.karmaID == Karma.karmaID)\
-                .order_by(Karma.rank.asc())\
-                .all()
-
-    if students:
-      # If students with rankings are found, return a list of their JSON representations
-      student_rankings = [{
-          "studentID": student.Student.ID,
-          "firstname": student.Student.firstname,
-          "lastname": student.Student.lastname,
-          "karmaScore": student.Karma.score,
-          "karmaRank": student.Karma.rank
-      } for student in students]
-      return student_rankings
-    else:
-      # If no students with rankings are found, return an empty list
-      return []
