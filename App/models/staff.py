@@ -4,48 +4,51 @@ from .student import Student
 from .karma import Karma
 from .review import Review
 
-
-class Staff(User):
+class Staff(db.Model):
   __tablename__ = 'staff'
   ID = db.Column(db.String(10), primary_key=True)
   email = db.Column(db.String(120), nullable=False)
+  firstname = db.Column(db.String(120), nullable=False)
+  lastname = db.Column(db.String(120), nullable=False)
+  password = db.Column(db.String(120), nullable=False)
   teachingExperience = db.Column(db.Integer, nullable=False)
 
-  def __init__(self, staffID, firstname, lastname, password, email,
-               teachingExperience):
-    super().__init__(firstname, lastname, password)
+  def set_password(self, password):
+    """Create hashed password."""
+    self.password = generate_password_hash(password, method='sha256')
+
+  def check_password(self, password):
+    """Check hashed password."""
+    return check_password_hash(self.password, password)
+
+
+  def __init__(self, staffID, firstname, lastname, password, email,teachingExperience):
     self.ID = staffID
     self.email = email
+    self.firstname = firstname
+    self.lastname = lastname
+    self.set_password(password)
     self.teachingExperience = teachingExperience
+
 
   def get_id(self):
     return self.ID
 
-#return staff details on json format
 
-  def to_json(self):
-    return {
-        "staffID": self.ID,
-        "firstname": self.firstname,
-        "lastname": self.lastname,
-        "email": self.email,
-        "teachingExperience": self.teachingExperience
-    }
-
-# Retrieve reviews by a staff member from the Review model
-
+  #Retrieve reviews by a staff member from the Review model
   def getReviewsByStaff(self, staff):
     staff_reviews = staff.reviews_created
     return [review.to_json() for review in staff_reviews]
 
-#create a review for a student
 
+  #create a review for a student
   def createReview(self, student, isPositive, comment):
     review = Review(self, student, isPositive, comment)
     student.reviews.append(review)  #add review to the student
     db.session.add(review)  #add to db
     db.session.commit()
     return review
+
 
   def searchStudent(self, searchTerm):
     # Query the Student model for a student by ID or first name, or last name
@@ -63,9 +66,18 @@ class Staff(User):
       # If no matching students are found, return an empty list
       return []
 
+  #return staff details on json format
+  def to_json(self):
+    return {
+        "staffID": self.ID,
+        "firstname": self.firstname,
+        "lastname": self.lastname,
+        "email": self.email,
+        "teachingExperience": self.teachingExperience
+    } 
+
 
 #get student karma rankings from highest rank to lowest based on scores
-
   def getStudentRankings(self):
     students = db.session.query(Student, Karma)\
                 .join(Karma, Student.karmaID == Karma.karmaID)\

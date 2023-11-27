@@ -39,6 +39,7 @@ class Review(db.Model):
   comment = db.Column(db.String(400), nullable=False)
   strategy=db.Column(VotingStrategy,nullable=True)
 
+
   # initialize the review. when it is created the date is automatically gotten and votes are at 0
   def __init__(self, reviewer, student, isPositive, comment):
     self.reviewerID = reviewer.ID
@@ -63,6 +64,7 @@ class Review(db.Model):
       db.session.commit()
       return True
     return None
+
 
   #deletes the review when called if the staff memeber is the creator of the review, return none if not
   def deleteReview(self, staff):
