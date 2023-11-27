@@ -1,6 +1,6 @@
-from abc import ABC, abstractmethod
+from App.models import VotingStrategy
 
-class DownVote(ABC):
+class DownVote(VotingStrategy):
     # implementation of Downvote method
     def vote(staff):
         if staff in self.staffDownvoters:  # If they downvoted the review already, return current votes
