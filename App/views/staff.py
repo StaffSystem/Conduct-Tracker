@@ -9,7 +9,6 @@ from flask_jwt_extended import jwt_required
 
 from App.controllers.staff import (
     search_students_searchTerm, 
-    get_student_rankings,
     create_review
 )
 

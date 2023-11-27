@@ -4,11 +4,14 @@ from App.database import db
 def get_reviews(): 
     return db.session.query(Review).all()
 
+
 def get_reviews_for_student(studentID):
     return db.session.query(Review).filter_by(studentID=studentID).all()
 
+
 def get_review(reviewID):
     return Review.query.filter_by(ID=reviewID).first()
+
 
 def get_reviews_by_staff(staffID):
     return db.session.query(Review).filter_by(reviewerID=staffID).all()

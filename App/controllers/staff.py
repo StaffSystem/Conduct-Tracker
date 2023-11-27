@@ -22,5 +22,3 @@ def search_students_searchTerm(staff, searchTerm):
       return students
     return None
   
-def get_student_rankings(staff):
-    return staff.getStudentRankings()
