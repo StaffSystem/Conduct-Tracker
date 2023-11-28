@@ -1,4 +1,5 @@
 from App.database import db
+from App.models.state import State
 from .user import User
 from .student import Student
 from .karma import Karma
@@ -12,6 +13,7 @@ class Staff(db.Model):
   lastname = db.Column(db.String(120), nullable=False)
   password = db.Column(db.String(120), nullable=False)
   teachingExperience = db.Column(db.Integer, nullable=False)
+  state=db.Column(State,nullable=True)
 
   def set_password(self, password):
     """Create hashed password."""
