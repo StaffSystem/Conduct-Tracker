@@ -1,5 +1,6 @@
 from App.database import db
 from .user import User
+from datetime import datetime
 
 class Student(db.Model):
 	__tablename__ = 'student'
@@ -20,7 +21,7 @@ class Student(db.Model):
 		self.lastname = lastname
 		self.contact = contact
 		self.studentType = studentType
-		self.programBegan = programBegan
+		self.program = program
 		self.reviews = []
 	
 	def get_id(self):
