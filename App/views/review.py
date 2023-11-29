@@ -6,13 +6,11 @@ from App.controllers.user import get_staff
 from App.controllers.student import search_student
 
 from App.controllers.review import (
-    get_reviews_by_staff,
-    edit_review,
-    delete_review,
-    upvoteReview,
-    downvoteReview,
+    get_reviews_from_staff,
+    editReview,
+    deleteReview,
     get_reviews,
-    get_reviews_for_student, 
+    get_reviews_of_student, 
     get_review
 )
 
