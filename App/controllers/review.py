@@ -70,7 +70,7 @@ def downvoteReview(reviewID, staff):
 
     return review.downvotes
 
-def setStratergy():
+# def setStratergy():
     
 
 
