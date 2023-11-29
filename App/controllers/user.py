@@ -10,10 +10,12 @@ def create_student(admin,studentID, firstname, lastname, contact, studentType, p
 
 
 def create_staff(admin, firstname, lastname, password, staffID, email, teachingExperience):
-		new_staff = admin.addStaff(staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=teachingExperience)
-		if new_staff:
-			return new_staff
-		return None
+    new_staff = admin.addStaff(staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=teachingExperience)
+    
+    if new_staff:
+	        return new_staff
+    else:
+	    return None
 
 
 def create_user(firstname, lastname, password):
@@ -79,12 +81,16 @@ def get_all_staff():
 def update_student(student, firstname, lastname, password, contact, studentType, yearofStudy):
     student.firstname = firstname 
     student.lastname = lastname
+
     if password is not None:
+
       student.set_password(password)
+
     student.contact = contact
     student.studentType = studentType
     student.yearOfStudy = yearofStudy
     db.session.add(student)
     db.session.commit()
+
     return student
     
