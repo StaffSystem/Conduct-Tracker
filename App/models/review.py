@@ -30,7 +30,6 @@ class Review(db.Model):
 
   staffUpvoters = db.relationship('Staff',secondary=review_staff_upvoters,backref=db.backref('reviews_upvoted',lazy='joined'))  #for staff who have voted on the review
 
-  staffDownvoters = db.relationship('Staff',secondary=review_staff_downvoters,backref=db.backref('reviews_downvoted',lazy='joined'))  #for staff who have voted on the review
   upvotes = db.Column(db.Integer, nullable=False)
   downvotes = db.Column(db.Integer, nullable=False)
   isPositive = db.Column(db.Boolean, nullable=False)
