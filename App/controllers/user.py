@@ -9,13 +9,13 @@ def create_student(admin,studentID, firstname, lastname, contact, studentType, p
 		return None
 
 
-def create_staff(admin, firstname, lastname, password, staffID, email, teachingExperience):
-    new_staff = admin.addStaff(staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=teachingExperience)
+# def create_staff(admin, firstname, lastname, password, staffID, email, teachingExperience):
+#     new_staff = admin.addStaff(staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=teachingExperience)
     
-    if new_staff:
-	        return new_staff
-    else:
-	    return None
+#     if new_staff:
+# 	        return new_staff
+#     else:
+# 	    return None
 
 
 def create_user(firstname, lastname, password):

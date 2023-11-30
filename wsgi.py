@@ -21,7 +21,7 @@ def initialize():
   db.create_all()
   admin= create_user('bob', 'boblast' , 'bobpass')
   for ID in  range(2, 50): 
-    staff= create_staff(admin, 
+    staff= create_staff( 
           randomname.get_name(), 
           randomname.get_name(), 
           randomname.get_name(), 
@@ -32,7 +32,7 @@ def initialize():
     db.session.add(staff)
     db.session.commit()
     
-  print("Database Initialised")  
+    
 
   for ID in range(50, 150): 
       contact= generate_random_contact_number()
@@ -45,7 +45,7 @@ def initialize():
       )
       db.session.add(student)
       db.session.commit()
-
+  print("Database Initialised")
   return jsonify({'message': 'Database initialized'}),201
 
 '''

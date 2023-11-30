@@ -22,12 +22,12 @@ class Admin(User):
 		return newStudent 
 
 	# add staff to the database
-	def addStaff(self, id, firstname, lastname, password, email, teachingExperience):
-		newStaff= Staff(id, firstname, lastname, password, email, teachingExperience)
+	# def addStaff(self, id, firstname, lastname, password, email, teachingExperience):
+	# 	newStaff= Staff(id, firstname, lastname, password, email, teachingExperience)
 			
-		db.session.add(newStaff)
-		db.session.commit()  # Commit to save the new staff to the database
-		return newStaff
+	# 	db.session.add(newStaff)
+	# 	db.session.commit()  # Commit to save the new staff to the database
+	# 	return newStaff
 
 	#takes a studentID, string for field_to_update and new_value . Updates the  relative field for the student
 	def updateStudent(self, studentID, field_to_update, new_value):

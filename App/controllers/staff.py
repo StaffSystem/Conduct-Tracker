@@ -21,4 +21,12 @@ def search_students_searchTerm(staff, searchTerm):
     if students:
       return students
     return None
+
+def create_staff(firstname, lastname, password, staffID, email, teachingExperience):
+    new_staff = Staff.addStaff(self = Staff, id=staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=teachingExperience)
+    
+    if new_staff:
+	        return new_staff
+    else:
+	    return None
   
