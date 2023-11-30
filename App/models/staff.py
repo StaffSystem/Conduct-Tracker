@@ -52,6 +52,15 @@ class Staff(db.Model, UserMixin):
     return review
 
 
+  #add student to the database
+  def addStudent(self, id, firstname, lastname, contact, studentType, program):
+    newStudent = Student(id, firstname, lastname, contact, studentType, program)
+
+    db.session.add(newStudent)
+    db.session.commit()
+    return newStudent
+
+
   def searchStudent(self, searchTerm):
     # Query the Student model for a student by ID or first name, or last name
     students = db.session.query(Student).filter(

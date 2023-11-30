@@ -16,6 +16,13 @@ def get_staff_reviews(staff_id):
     if staff:
         return staff.getReviewsByStaff(staff)
 
+
+def create_student(staff, studentID, firstname, lastname, contact, studentType, program):
+    new_student = staff.addStudent(studentID, firstname=firstname, lastname=lastname, contact=contact, studentType=studentType, program=program)
+    if new_student:
+        return new_student
+    return None
+
 def search_students_searchTerm(staff, searchTerm):
     students = staff.searchStudent(searchTerm)
     if students:

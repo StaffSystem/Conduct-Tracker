@@ -14,12 +14,12 @@ class Admin(User):
 		return self.ID
 
 	#add student to the database
-	def addStudent(self, id, firstname, lastname, contact, studentType, program):
-		newStudent= Student(id, firstname, lastname, contact, studentType, program)
+	# def addStudent(self, id, firstname, lastname, contact, studentType, program):
+	# 	newStudent= Student(id, firstname, lastname, contact, studentType, program)
 		
-		db.session.add(newStudent)
-		db.session.commit()  # Commit to save the new student to the database
-		return newStudent 
+	# 	db.session.add(newStudent)
+	# 	db.session.commit()  # Commit to save the new student to the database
+	# 	return newStudent 
 
 	# add staff to the database
 	# def addStaff(self, id, firstname, lastname, password, email, teachingExperience):
