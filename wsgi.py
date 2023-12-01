@@ -1,5 +1,7 @@
 from App.models import Upvote
+from App.models.review import Review
 from App.models.staff import Staff
+from App.models.student import Student
 from App.views.index import generate_random_contact_number
 import click, pytest, sys
 from flask import Flask, jsonify
@@ -104,9 +106,11 @@ reviewTest = AppGroup("vote", help='Testing')
 @reviewTest.command("upvote")
 def voteTest():
     staff=Staff(staffID="mich22",firstname="Mich",lastname="Jerry",password="michpass",email="mich@gmail.com",teachingExperience=4)
+    student=Student(studentID="S21",firstname="Bob",lastname="bobby",contact="423-124",studentType="Full",program="Computer Science")
+    review= Review(reviewer=staff,student=student, isPositive=True, comment="Very good")
     print("Hello before")
     upvote=Upvote()
-    upvote.vote(staff)
+    upvote.vote(review)
     print("Hello after")
     pass
   
