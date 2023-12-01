@@ -21,22 +21,10 @@ def generate_random_contact_number():
 def init():
   db.drop_all()
   db.create_all()
-  admin= create_user('bob', 'boblast' , 'bobpass')
-  for ID in  range(2, 50): 
-    staff= create_staff(admin, 
-          randomname.get_name(), 
-          randomname.get_name(), 
-          randomname.get_name(), 
-          str(ID), 
-          randomname.get_name() + '@schooling.com', 
-          str(random.randint(1, 15))
-      )
-    db.session.add(staff)
-    db.session.commit()
 
   for ID in range(50, 150): 
       contact= generate_random_contact_number()
-      student= create_student(admin, str(ID),
+      student= create_student( str(ID),
           randomname.get_name(), 
           randomname.get_name(), 
           randomname.get_name(),

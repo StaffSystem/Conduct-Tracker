@@ -17,8 +17,8 @@ def get_staff_reviews(staff_id):
         return staff.getReviewsByStaff(staff)
 
 
-def create_student(staff, studentID, firstname, lastname, contact, studentType, program):
-    new_student = staff.addStudent(studentID, firstname=firstname, lastname=lastname, contact=contact, studentType=studentType, program=program)
+def create_student(studentID, firstname, lastname, contact, studentType, program):
+    new_student = Student(studentID, firstname=firstname, lastname=lastname, contact=contact, studentType=studentType, program=program)
     if new_student:
         return new_student
     return None

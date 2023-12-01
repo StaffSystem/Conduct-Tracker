@@ -40,7 +40,7 @@ def initialize():
 
   for ID in range(50, 150): 
       contact= generate_random_contact_number()
-      student= create_student(staff, str(ID),
+      student= create_student(str(ID),
           randomname.get_name(), 
           randomname.get_name(), 
           contact,
