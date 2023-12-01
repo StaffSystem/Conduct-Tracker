@@ -1,5 +1,6 @@
 from App.database import db
-# from App.models.VotingStrategy import VotingStrategy
+from App.models import Downvote, Upvote
+from App.models import VotingStrategy
 from .student import Student
 from datetime import datetime
 from .karma import Karma
@@ -81,7 +82,7 @@ class Review(db.Model):
  #execute voting based on voting strategy chosen
   def executeStrategy(reviewer):
       if reviewer in self.staffDownvoters:
-        setStrategy(DownVote) 
+        setStrategy(Downvote) 
       else:  
         setStrategy(Upvote)
 

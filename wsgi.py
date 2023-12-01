@@ -1,3 +1,5 @@
+from App.models import Upvote
+from App.models.staff import Staff
 from App.views.index import generate_random_contact_number
 import click, pytest, sys
 from flask import Flask, jsonify
@@ -96,3 +98,16 @@ def user_tests_command(type):
 
 
 app.cli.add_command(test)
+
+#cli command: flask vote upvote
+reviewTest = AppGroup("vote", help='Testing') 
+@reviewTest.command("upvote")
+def voteTest():
+    staff=Staff(staffID="mich22",firstname="Mich",lastname="Jerry",password="michpass",email="mich@gmail.com",teachingExperience=4)
+    print("Hello before")
+    upvote=Upvote()
+    upvote.vote(staff)
+    print("Hello after")
+    pass
+  
+app.cli.add_command(reviewTest)

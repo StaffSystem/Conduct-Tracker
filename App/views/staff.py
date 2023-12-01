@@ -1,5 +1,5 @@
-import random
-import string
+
+from flask.cli import AppGroup, FlaskGroup
 from flask import Blueprint, request, jsonify
 from App.controllers import Student, Staff
 from App.controllers.user import get_staff, get_student
@@ -60,14 +60,15 @@ def search_students(search_term):
   else:
     return jsonify({"message": "You are not authorized to perform this action"}), 401
 
-@staff_views.route('/rankings', methods=['GET'])
-@jwt_required()
-def get_karma_rankings():
-  if jwt_current_user or isinstance(jwt_current_user, Staff):
-    rankings = get_student_rankings(jwt_current_user) 
-    if rankings:
-      return jsonify(rankings), 200
-    else:
-      return jsonify({"message": "No rankings found"}), 204
-  else:
-    return jsonify({"message": "You are not authorized to perform this action"}), 401 
+# @staff_views.route('/rankings', methods=['GET'])
+# @jwt_required()
+# def get_karma_rankings():
+#   if jwt_current_user or isinstance(jwt_current_user, Staff):
+#     rankings = get_student_rankings(jwt_current_user) 
+#     if rankings:
+#       return jsonify(rankings), 200
+#     else:
+#       return jsonify({"message": "No rankings found"}), 204
+#   else:
+#     return jsonify({"message": "You are not authorized to perform this action"}), 401 
+  
