@@ -7,6 +7,14 @@ def search_student(studentID):
         return student
     return None
 
+
+def update_student(studentID,fname,lname):
+    student=Student.query.filter_by(id=studentID).first
+    if student:
+        student.edit_name(fname,lname);
+        return student
+    return None
+
 # must edit to reflect change in karma scoring approach
 def calculate_student_karma(student):
     good_karma = 0

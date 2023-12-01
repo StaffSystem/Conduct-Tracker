@@ -45,3 +45,9 @@ class Student(db.Model):
 	def getKarma(self):
 		from .karma import Karma
 		return Karma.query.get(self.karmaID)
+
+	def edit_name(self, fname, lname):
+		self.firstname = fname
+		self.lastname = lname
+
+		db.session.commit()
