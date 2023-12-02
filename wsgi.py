@@ -109,8 +109,12 @@ systemTest = AppGroup("system", help='User Interface')
 
 #flask system login
 @systemTest.command("loginStaff")
-def Login():
-    pass
+@cli.comand("email", default="bob@com")
+@cli.comand("password", default="bobpass")
+def Login(email,password):
+    staff = login(email, password)
+    if staff:
+        print(f'Sucessfully logged in: {staff.firstname} {staff.lastname}')
 
 
 #flask system logout
@@ -128,19 +132,21 @@ def addStudent():
 
 #flask system searchStudent
 @systemTest.command("searchStudent")
-@click.argument("student_id", default= "test")
+@click.argument("student_id", default= "1")
 def SearchStudent(student_id):
-    student = search_student(student_id)
+    student = get_student(student_id)
     if student: 
         print(f'Student found: {student.firstname} {student.lastname}!')
     else:        
         print("Student not found")
+
 
 #flask system editStudent
 @systemTest.command("editStudent")
 def EditStudent():
     print("Student Successfully edited")
     pass
+
 
 # @systemTest.command("addstaff")
 # @click.argument("firstname", default="rib")
@@ -157,19 +163,25 @@ def EditStudent():
 #         return staff
 #     return None
 
-# #flask system searchStaff
-# @systemTest.command("searchStaff")
-# @click.argument("firstname", default="rib")
-# def SearchStaff(firstname):
-#     staff=Staff.query.filter_by(firstname=firstname)
-#     print("Staff Found")
-#     pass
+
+#flask system searchStaff
+@systemTest.command("searchStaff")
+@click.argument("staff_id", default="1")
+def SearchStaff(staff_id):
+    found = search_staff(staff_id)
+    if found:
+        print(f'Staff found: {found.firstname} {found.lastname}!')
+    else:
+        print("Staff not found")
+
 
 # #flask system editStudent
 # @systemTest.command("editStaff")
 # def EditStaff():
+#     staff = editStaff(firstname, lastname, email, password, te)
 #     print("Student Successfully edited")
 #     pass
+
 
 #flask system createReview
 # @systemTest.command("createReview")
@@ -184,8 +196,6 @@ def EditStudent():
 #     if review:
 #         print("Review Created")
 #     return None
-    
-    
 
 
 #flask system getReview
@@ -213,11 +223,13 @@ def GetReview(reviewID):
 
 #flask system editReview
 @systemTest.command("editReview")
-@click.argument("review")
-@click.argument("staff")
+@click.argument("reviewid")
+@click.argument("staffid")
 @click.argument("is_positive", default="true")
 @click.argument("comment", default="test")
-def editReview(review, staff, is_positive, comment):
+def editReview(reviewid, staffid, is_positive, comment):
+    reviewfound = get_review(reviewid)
+    stafffound = search_staff(staff_id)
     rev = editReview(review, staff, is_positive, comment)
     if rev:
         print("Review Edited")
@@ -225,9 +237,11 @@ def editReview(review, staff, is_positive, comment):
 
 #flask system deleteReview
 @systemTest.command("deleteReview")
-@click.argument("review")
-@click.argument("staff")
+@click.argument("reviewid")
+@click.argument("staffid")
 def DeleteReview(review, staff):
+    review = get_review(reviewid)
+    staff = search_staff(staff_id)
     dele = deleteReview(review, staff)
     if dele: 
         print("Review Deleted")
