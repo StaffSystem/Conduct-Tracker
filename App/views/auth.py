@@ -11,7 +11,6 @@ from App.controllers import staff
 from App.controllers import (
     create_user,
     jwt_authenticate,
-    jwt_authenticate_admin,
     get_staff_email,
     login 
 )
@@ -52,8 +51,8 @@ def login_action():
     
     if user:
         session['logged_in'] = True
-        token = jwt_authenticate(data['email'], data['password'])
-        return 'user logged in!'
+        access_token = jwt_authenticate(data['email'], data['password'])
+        return 'Account Logged in'
     return 'bad email or password given', 401
 
 

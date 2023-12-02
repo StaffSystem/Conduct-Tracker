@@ -44,8 +44,8 @@ class Staff(db.Model, UserMixin):
 
 
   #create a review for a student
-  def createReview(self, student, isPositive, comment):
-    review = Review(self, student, isPositive, comment)
+  def createReview(self, staff,student, isPositive, comment):
+    review = Review(staff,student, isPositive, comment)
     student.reviews.append(review)  #add review to the student
     db.session.add(review)  #add to db
     db.session.commit()

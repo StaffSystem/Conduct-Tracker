@@ -4,10 +4,10 @@ from App.database import db
 
 def create_review(staffID, studentID, is_positive, comment):
     staff = get_staff(staffID)
-    student = db.session.query(Student).get(studentID)
-    
+    student = Student.query.filter_by(ID=studentID).first()
+
     if staff and student:
-        review = staff.createReview(student,is_positive, comment)
+        review = staff.createReview(staff,student,is_positive, comment)
         return review
     return None
 
