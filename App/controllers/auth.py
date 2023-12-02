@@ -25,19 +25,11 @@ def jwt_authenticate_admin(id, password):
   return None
 
 
-def login(id, password):    
+def login(email, password):    
 
-    staff = Staff.query.filter_by(ID=id).first()
+    staff = Staff.query.filter_by(email=email).first()
     if staff and staff.check_password(password):
         return staff
-
-    student = Student.query.filter_by(ID=id).first()
-    if student and student.check_password(password):
-        return student
-
-    admin = Admin.query.filter_by(ID=id).first()
-    if admin and admin.check_password(password):
-        return admin
     return None
 
 

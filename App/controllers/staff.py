@@ -36,7 +36,7 @@ def search_students_searchTerm(staff, searchTerm):
     return None
 
 def create_staff(staffID,email,firstname,lastname,password,te):
-    new_staff = Staff( staffID=staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=te)
+    new_staff = Staff(staffID=staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=te)
     
     if new_staff:
             return new_staff

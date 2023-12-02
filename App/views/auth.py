@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from App.controllers.staff import create_staff
 
 from.index import index_views
+from App.controllers import staff
 
 from App.controllers import (
     create_user,
@@ -19,25 +20,26 @@ auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 @auth_views.route('/signup',methods=['POST'])
 def createStaff():
     data=request.get_json()
-    taken_email=get_staff_email(data["email"])
+    taken_email=staff.get_staff_email(data["email"])
 
     if(taken_email):
         return jsonify({"message": "Email is already in use"}),401
     else: 
         user=create_staff(data['staffId'],data['email'],data["firstname"],data["lastname"],data['password'],data["te"])
     if(user):
-            return jsonify({"message": "Account Created"}),201
+        return jsonify({"message": "Account Created"}),201
      
         
 @auth_views.route('/login', methods=['POST'])
 def login_action():
     data = request.json
-    user = login(data['ID'], data['password'])
+    user = login(data['email'], data['password'])
+    
     if user:
         session['logged_in'] = True
         token = jwt_authenticate(data['ID'], data['password'])
         return 'user logged in!'
-    return 'bad username or password given', 401
+    return 'bad email or password given', 401
 
 
 @auth_views.route('/logout', methods=['GET'])
