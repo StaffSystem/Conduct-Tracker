@@ -18,6 +18,10 @@ from App.controllers.review import (
 review_views = Blueprint("review_views", __name__, template_folder='../templates')
 
 # Route to list all reviews (you can customize this route as needed)
+
+
+
+
 @review_views.route('/reviews', methods=['GET'])
 def list_reviews():
     reviews = get_reviews()

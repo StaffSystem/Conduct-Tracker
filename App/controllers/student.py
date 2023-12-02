@@ -7,6 +7,14 @@ def search_student(studentID):
         return student
     return None
 
+def get_student(student_id):
+    found_student=Student.query.filter_by(ID=student_id).first()
+    
+    if(found_student):
+        return found_student
+    else:
+        return None
+
 
 def update_student(studentID,fname,lname):
     student=Student.query.filter_by(id=studentID).first

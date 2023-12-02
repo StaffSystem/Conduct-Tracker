@@ -20,6 +20,7 @@ class Student(db.Model):
 		self.firstname = firstname
 		self.lastname = lastname
 		self.contact = contact
+		self.karma=0.00
 		self.studentType = studentType
 		self.program = program
 		self.reviews = []
@@ -29,7 +30,6 @@ class Student(db.Model):
 
 #Gets the student details and returns in JSON format
 	def to_json(self):
-		karma = self.getKarma()
 		return {
         "studentID": self.ID,
         "firstname": self.firstname,
@@ -38,7 +38,7 @@ class Student(db.Model):
         "studentType": self.studentType,
         "programBegan": self.programBegan,
         "reviews": [review.to_json() for review in self.reviews], 
-		"karmaScore": karma.score if karma else None,
+		"karmaScore": self.karma
     }
 
 #get karma record from the karma table using the karmaID attached to the student
