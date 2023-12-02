@@ -109,8 +109,8 @@ systemTest = AppGroup("system", help='User Interface')
 
 #flask system login
 @systemTest.command("loginStaff")
-@cli.comand("email", default="bob@com")
-@cli.comand("password", default="bobpass")
+@click.argument("email", default="bob@com")
+@click.argument("password", default="bobpass")
 def Login(email,password):
     staff = login(email, password)
     if staff:
