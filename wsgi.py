@@ -132,32 +132,34 @@ def EditStudent():
     print("Student Successfully edited")
     pass
 
-@systemTest.command("addstaff")
-@click.argument("firstname", default="rib")
-@click.argument("lastname", default="ribby")
-@click.argument("password", default="ribpass")
-@click.argument("staffid", default="RIB22")
-@click.argument("email", default="rIb@gmail.com")
-@click.argument("te", default=1)
-#staffID=ID,firstname=firstname,lastname=lastname,password=password,email=email,te=teacherExperience
-def addStaff(staffid,email,firstname,lastname,password,te):
-    staff=create_staff(staffid,email,firstname,lastname,password,te)
-    if staff:
-        print("Staff Added")
-        return staff
-    return None
+# @systemTest.command("addstaff")
+# @click.argument("firstname", default="rib")
+# @click.argument("lastname", default="ribby")
+# @click.argument("password", default="ribpass")
+# @click.argument("staffid", default="RIB22")
+# @click.argument("email", default="rIb@gmail.com")
+# @click.argument("te", default=1)
+# #staffID=ID,firstname=firstname,lastname=lastname,password=password,email=email,te=teacherExperience
+# def addStaff(staffid,email,firstname,lastname,password,te):
+#     staff=create_staff(staffid,email,firstname,lastname,password,te)
+#     if staff:
+#         print("Staff Added")
+#         return staff
+#     return None
 
-#flask system searchStaff
-@systemTest.command("searchStaff")
-def SearchStaff():
-    print("Staff Found")
-    pass
+# #flask system searchStaff
+# @systemTest.command("searchStaff")
+# @click.argument("firstname", default="rib")
+# def SearchStaff(firstname):
+#     staff=Staff.query.filter_by(firstname=firstname)
+#     print("Staff Found")
+#     pass
 
-#flask system editStudent
-@systemTest.command("editStaff")
-def EditStaff():
-    print("Student Successfully edited")
-    pass
+# #flask system editStudent
+# @systemTest.command("editStaff")
+# def EditStaff():
+#     print("Student Successfully edited")
+#     pass
 
 #flask system createReview
 @systemTest.command("createReview")

@@ -3,6 +3,8 @@ from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from flask_login import login_required, login_user, current_user, logout_user
 from datetime import datetime, timedelta
 
+from App.controllers.staff import create_staff
+
 from.index import index_views
 
 from App.controllers import (
@@ -22,7 +24,7 @@ def createStaff():
     if(taken_email):
         return jsonify({"message": "Email is already in use"}),401
     else: 
-        user=staff.create_staff(data['staffId'],data['email'],data["firstname"],data["lastname"],data['password'],data["te"]);
+        user=create_staff(data['staffId'],data['email'],data["firstname"],data["lastname"],data['password'],data["te"])
     if(user):
             return jsonify({"message": "Account Created"}),201
      
