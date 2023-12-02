@@ -2,13 +2,8 @@ from flask import Blueprint, render_template, jsonify, request, send_from_direct
 from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from flask_login import login_required, login_user, current_user, logout_user
 from datetime import datetime, timedelta
-<<<<<<< HEAD
-
-from App.controllers.staff import create_staff
-=======
 from App.models import Staff
 from App.database import db
->>>>>>> f0209e8 (Create Account works)
 
 from.index import index_views
 from App.controllers import staff
@@ -49,16 +44,6 @@ def createStaff():
         db.session.rollback()
         return jsonify({"message": "Error creating staff account"}), 500
 
-<<<<<<< HEAD
-    if(taken_email):
-        return jsonify({"message": "Email is already in use"}),401
-    else: 
-        user=create_staff(data['staffId'],data['email'],data["firstname"],data["lastname"],data['password'],data["te"])
-    if(user):
-        return jsonify({"message": "Account Created"}),201
-     
-=======
->>>>>>> f0209e8 (Create Account works)
         
 @auth_views.route('/login', methods=['POST'])
 def login_action():
