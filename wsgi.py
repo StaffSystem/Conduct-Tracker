@@ -103,110 +103,108 @@ app.cli.add_command(test)
 
 systemTest = AppGroup("system", help='User Interface')
 
-#flask system login
-@systemTest.command("login")
-def Login():
-    pass
+# #flask system login
+# @systemTest.command("loginStaff")
+# def Login():
+#     pass
 
-#flask system logout
-@systemTest.command("logout")
-def Logout():
-    pass
+# #flask system logout
+# @systemTest.command("logoutStaff")
+# def Logout():
+#     pass
 
-#flask system createAccount
-@systemTest.command("createAccount")
-def createAccount():
-    print("Account Created")
-    pass
 
-#flask system addStudent
-@systemTest.command("addStudent")
-def addStudent():
-    print("Student Added")
-    pass
+# #flask system addStudent
+# @systemTest.command("addStudent")
+# def addStudent():
+#     print("Student Added")
+#     pass
 
-#flask system getData
-@systemTest.command("getData")
-def getData():
-    print("Data Retrieve")
-    pass
+# #flask system searchStudent
+# @systemTest.command("searchStudent")
+# def SearchStudent():
+#     print("Student Found")
+#     pass
 
-#flask system dataCopy
-@systemTest.command("dataCopy")
-def dataCopy():
-    print("Data copied")
-    pass
-#flask system updateData
-@systemTest.command("updateData")
-def UpdateData():
-    print("Data updated")
-    pass
+# #flask system editStudent
+# @systemTest.command("editStudent")
+# def EditStudent():
+#     print("Student Successfully edited")
+#     pass
 
-#flask system deleteData
-@systemTest.command("deleteData")
-def DeleteData():
-    print("Data deleted")
-    pass
+# @systemTest.command("addstaff")
+# @click.argument("firstname", default="rib")
+# @click.argument("lastname", default="ribby")
+# @click.argument("password", default="ribpass")
+# @click.argument("StaffID", default="RIB22")
+# @click.argument("email", default="rIb@gmail.com")
+# @click.argument("teachingExperience", default=1)
+# def addStaff(firstname,lastname,password,StaffID,email,teachingExperience):
+#     staff=create_staff(firstname,lastname,password,StaffID,email,teachingExperience)
+#     if staff:
+#         print("Staff Added")
+#         return staff
+#     return None
 
-#flask system searchStudent
-@systemTest.command("searchStudent")
-def SearchStudent():
-    print("Student Found")
-    pass
+# #flask system searchStaff
+# @systemTest.command("searchStaff")
+# def SearchStaff():
+#     print("Staff Found")
+#     pass
 
-#flask system editStudent
-@systemTest.command("editStudent")
-def EditStudent():
-    print("Student Successfully edited")
-    pass
+# #flask system editStudent
+# @systemTest.command("editStaff")
+# def EditStaff():
+#     print("Student Successfully edited")
+#     pass
 
-#flask system createReview
-@systemTest.command("createReview")
-def CreateReview():
-    print("Review Created")
-    pass
+# #flask system createReview
+# @systemTest.command("createReview")
+# def CreateReview():
+#     print("Review Created")
+#     pass
 
-#flask system getReview
-@systemTest.command("getReview")
-def GetReview():
-    print("Review retrieved")
-    pass
+# #flask system getReview
+# @systemTest.command("getReview")
+# def GetReview():
+#     print("Review retrieved")
+#     pass
 
-#flask system editReview
-@systemTest.command("editReview")
-def EditReview():
-    print("Review Edited")
-    pass
+# #flask system editReview
+# @systemTest.command("editReview")
+# def EditReview():
+#     print("Review Edited")
+#     pass
 
-#flask system deleteReview
-@systemTest.command("deleteReview")
-def DeleteReview():
-    print("Review Deleted")
-    pass
+# #flask system deleteReview
+# @systemTest.command("deleteReview")
+# def DeleteReview():
+#     print("Review Deleted")
+#     pass
 
-#flask system vote
-@systemTest.command("vote")
-def Vote():
-    print("Voted")
-    pass
+# #flask system vote
+# @systemTest.command("vote")
+# def Vote():
+#     print("Voted")
+#     pass
 
 
 
-app.cli.add_command(systemTest)
+# app.cli.add_command(systemTest)
 
 
 #cli command: flask vote upvote
-reviewTest = AppGroup('vote', help='Testing') 
-@reviewTest.command("upvote")
+# reviewTest = AppGroup('vote', help='Testing') 
+# @reviewTest.command("upvote")
 
-def voteTest():
-    staff=Staff(staffID="mich22",firstname="Mich",lastname="Jerry",password="michpass",email="mich@gmail.com",teachingExperience=4)
-    student=Student(studentID="S21",firstname="Bob",lastname="bobby",contact="423-124",studentType="Full",program="Computer Science")
-    review= Review(reviewer=staff,student=student, isPositive=True, comment="Very good")
-    print("Hello before")
-    upvote=Upvote()
-    upvote.vote(review)
-    print("Hello after")
-    pass
+# def voteTest():
+#     staff=Staff(staffID="mich22",firstname="Mich",lastname="Jerry",password="michpass",email="mich@gmail.com",teachingExperience=4)
+#     student=Student(studentID="S21",firstname="Bob",lastname="bobby",contact="423-124",studentType="Full",program="Computer Science")
+#     review= Review(reviewer=staff,student=student, isPositive=True, comment="Very good")
+#     print("Hello before")
+#     upvote=Upvote()
+#     upvote.vote(review)
+#     print("Hello after")
+#     pass
   
-app.cli.add_command(reviewTest)
+# app.cli.add_command(reviewTest)

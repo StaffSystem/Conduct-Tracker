@@ -39,7 +39,5 @@ def create_staff(staffID,email,firstname,lastname,password,te):
     new_staff = Staff( staffID=staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=te)
     
     if new_staff:
-	        return new_staff
-    else:
-	    return None
-  
+            return new_staff
+    return None
