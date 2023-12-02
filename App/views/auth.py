@@ -24,7 +24,6 @@ from App.controllers import (
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 
 @auth_views.route('/signup',methods=['POST'])
-@auth_views.route('/signup', methods=['POST'])
 def createStaff():
     try:
         data = request.get_json()
@@ -63,12 +62,12 @@ def createStaff():
         
 @auth_views.route('/login', methods=['POST'])
 def login_action():
-    data = request.json
+    data = request.get_json()
     user = login(data['email'], data['password'])
     
     if user:
         session['logged_in'] = True
-        token = jwt_authenticate(data['ID'], data['password'])
+        token = jwt_authenticate(data['email'], data['password'])
         return 'user logged in!'
     return 'bad email or password given', 401
 
