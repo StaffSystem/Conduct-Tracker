@@ -17,7 +17,7 @@ from App.controllers.staff import (
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 
 
-@staff_views.route('/signup',methods=["POST"])
+@staff_views.route('/signupTest',methods=["POST"])
 def createStaff():
     data = request.get_json()
     taken_name=get_staff_email(data["email"])
