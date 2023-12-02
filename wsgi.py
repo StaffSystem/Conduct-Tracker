@@ -112,6 +112,7 @@ systemTest = AppGroup("system", help='User Interface')
 def Login():
     pass
 
+
 #flask system logout
 @systemTest.command("logoutStaff")
 def Logout():
@@ -124,11 +125,16 @@ def addStudent():
     print("Student Added")
     pass
 
+
 #flask system searchStudent
 @systemTest.command("searchStudent")
-def SearchStudent():
-    print("Student Found")
-    pass
+@click.argument("student_id", default= "test")
+def SearchStudent(student_id):
+    student = search_student(student_id)
+    if student: 
+        print(f'Student found: {student.firstname} {student.lastname}!')
+    else:        
+        print("Student not found")
 
 #flask system editStudent
 @systemTest.command("editStudent")
@@ -183,32 +189,49 @@ def EditStudent():
 
 
 #flask system getReview
+#get all reviews
 @systemTest.command("getReviews")
-def GetReviews():
-    reviews=get_reviews()
+@click.argument("studentid", default="1")
+def GetReviews(studentid):
+    reviews = get_reviews_of_student(studentID)
     if reviews:
         print("Reviews retrieved")
-    return reviews
+    else:
+        print("No reviews found")
 
+
+#get specific review
 @systemTest.command("getReview")
-@click.argument("studentid", default="1")
-def GetReview(studentid):
-    review=get_review(studentid)
+@click.argument("reviewID", default="1")
+def GetReview(reviewID):
+    review = get_review(reviewID)
     if review:
         print("Review retrieved")
-    return review
+    else:
+        print("No review was found")
+
 
 #flask system editReview
 @systemTest.command("editReview")
-def EditReview():
-    print("Review Edited")
-    pass
+@click.argument("review")
+@click.argument("staff")
+@click.argument("is_positive", default="true")
+@click.argument("comment", default="test")
+def editReview(review, staff, is_positive, comment):
+    rev = editReview(review, staff, is_positive, comment)
+    if rev:
+        print("Review Edited")
+
 
 #flask system deleteReview
 @systemTest.command("deleteReview")
-def DeleteReview():
-    print("Review Deleted")
-    pass
+@click.argument("review")
+@click.argument("staff")
+def DeleteReview(review, staff):
+    dele = deleteReview(review, staff)
+    if dele: 
+        print("Review Deleted")
+    
 
 #flask system vote
 @systemTest.command("vote")
