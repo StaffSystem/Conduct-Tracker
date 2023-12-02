@@ -16,6 +16,28 @@ from App.controllers.staff import (
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 
 
+@staff_views.route('/signup',methods=["POST"])
+def createStaff():
+    data = request.get_json()
+    taken_name=get_staff_username(data["username"])
+
+    if(taken_name):
+        return jsonify({"message": "Username already exists"}),401
+    else: 
+        user = staff.create_staff(data["staffID"], data["email"], data["firstname"], data["lastname"], data["password"], data["te"])
+    if(user):
+        return jsonify({"message": "Account Created"}),201
+    
+
+@staff_views.route('/login',methods=["login"])
+def login_action():
+    data = request.get_json()
+    staff = Staff.query.filter_by(email=email).first()
+    if staff and staff.check_password(password):
+        access_token = create_access_token(identity = staff.ID)
+        return jsonify(access_token=access_token)
+    else:
+        return jsonify({"message": "Incorrect Username or Password"}),401
 
 
 # @staff_views.route('/staff/<string:staff_id>', methods=['GET'])
