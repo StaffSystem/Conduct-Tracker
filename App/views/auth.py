@@ -17,7 +17,7 @@ auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 @auth_views.route('/signup',methods=['POST'])
 def createStaff():
     data=request.get_json()
-    taken_email=get_staff_username(data["email"])
+    taken_email=get_staff_email(data["email"])
 
     if(taken_email):
         return jsonify({"message": "Email is already in use"}),401

@@ -16,6 +16,12 @@ def get_staff_reviews(staff_id):
     if staff:
         return staff.getReviewsByStaff(staff)
 
+def get_staff_email(email):
+    staff=Staff.query.filter_by(email=email).first()
+    if (staff):
+        return staff
+    return None
+
 
 def create_student(studentID, firstname, lastname, contact, studentType, program):
     new_student = Student(studentID, firstname=firstname, lastname=lastname, contact=contact, studentType=studentType, program=program)
