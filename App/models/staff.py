@@ -79,14 +79,7 @@ class Staff(db.Model, UserMixin):
 
   
   # addstaff to the database
-  def addStaff(self, id, firstname, lastname, password, email, teachingExperience):
-    newStaff = Staff(id, firstname, lastname, password, email, teachingExperience)
-
-    db.session.add(newStaff)
-    db.session.commit()
-    return newStaff
-
-
+  
   #return staff details on json format
   def to_json(self):
     return {

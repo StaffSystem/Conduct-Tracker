@@ -36,8 +36,17 @@ def search_students_searchTerm(staff, searchTerm):
     return None
 
 def create_staff(staffID,email,firstname,lastname,password,te):
-    new_staff = Staff(staffID=staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=te)
+    new_staff = addStaff(id=staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=te)
     
     if new_staff:
             return new_staff
     return None
+
+
+def addStaff(id, firstname, lastname, password, email, teachingExperience):
+    newStaff = Staff(id, firstname, lastname, password, email, teachingExperience)
+
+    db.session.add(newStaff)
+    db.session.commit()
+    return newStaff
+
