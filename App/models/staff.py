@@ -80,11 +80,6 @@ class Staff(db.Model, UserMixin):
   
   # addstaff to the database
   
-<<<<<<< HEAD
-=======
-
-
->>>>>>> f0209e8 (Create Account works)
   #return staff details on json format
   def to_json(self):
     return {
