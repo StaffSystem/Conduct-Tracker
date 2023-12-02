@@ -26,3 +26,24 @@ class Upvote(VotingStrategy):
         db.session.commit()
 
         return review.upvotes
+    
+    from App.models import VotingStrategy
+
+class DownVote(VotingStrategy):
+    # implementation of Downvote method
+    def vote(self,review):
+        if staff in review.staffDownvoters:  # If they downvoted the review already, return current votes
+            return review.downvotes
+        else:
+            if staff not in review.staffDownvoters:  #if staff has not downvoted allow the vote
+                review.downvotes += 1
+                review.staffDownvoters.append(staff)
+
+                if staff in review.staffUpvoters:  #if they had upvoted previously then remove their upvote to account for switching between votes
+                    review.upvotes -= 1
+                    review.staffUpvoters.remove(staff)
+        
+        db.session.add(review)
+        db.session.commit()
+
+        return review.downvotes

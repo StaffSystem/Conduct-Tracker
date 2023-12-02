@@ -1,3 +1,7 @@
+from flask_login import current_user, login_required
+from flask_jwt_extended import current_user as jwt_current_user
+from App.controllers.review import get_review, get_reviews
+from App.controllers.staff import create_review
 from App.models import Upvote
 from App.models.review import Review
 from App.models.staff import Staff
@@ -162,16 +166,37 @@ def EditStudent():
 #     pass
 
 #flask system createReview
-@systemTest.command("createReview")
-def CreateReview():
-    print("Review Created")
-    pass
+# @systemTest.command("createReview")
+# @click.argument("studentid", default="1")
+# @click.argument("username", default="Rib")
+# @click.argument("ispositive", default="True")
+# @click.argument("comment", default="Very Good")
+# def CreateReview(studentid,username,ispositive, comment):
+#     student=Student.query.filter_by(ID=studentid).first()
+#     staff=Staff.query.filter_by(firstname=username)
+#     review=create_review(staffid=staff.staffid,studentid=studentid,ispositive=ispositive,comment=comment)
+#     if review:
+#         print("Review Created")
+#     return None
+    
+    
+
 
 #flask system getReview
+@systemTest.command("getReviews")
+def GetReviews():
+    reviews=get_reviews()
+    if reviews:
+        print("Reviews retrieved")
+    return reviews
+
 @systemTest.command("getReview")
-def GetReview():
-    print("Review retrieved")
-    pass
+@click.argument("studentid", default="1")
+def GetReview(studentid):
+    review=get_review(studentid)
+    if review:
+        print("Review retrieved")
+    return review
 
 #flask system editReview
 @systemTest.command("editReview")
@@ -187,9 +212,13 @@ def DeleteReview():
 
 #flask system vote
 @systemTest.command("vote")
-def Vote():
-    print("Voted")
-    pass
+@click.argument("reviewid", default="1")
+def Vote(reviewid):
+    review=Review.query.get(reviewid)
+    if review:
+        
+        print("Voted")
+    return None
 
 
 
