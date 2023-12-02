@@ -3,6 +3,7 @@ from flask.cli import AppGroup, FlaskGroup
 from flask import Blueprint, request, jsonify
 from App.controllers import Student, Staff
 from App.controllers.user import get_staff, get_student
+from App.controllers.staff import get_staff_email
 from App.database import db
 from flask_jwt_extended import current_user as jwt_current_user
 from flask_jwt_extended import jwt_required
@@ -19,10 +20,10 @@ staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 @staff_views.route('/signup',methods=["POST"])
 def createStaff():
     data = request.get_json()
-    taken_name=get_staff_username(data["username"])
+    taken_name=get_staff_email(data["email"])
 
     if(taken_name):
-        return jsonify({"message": "Username already exists"}),401
+        return jsonify({"email": "email already in use"}),401
     else: 
         user = staff.create_staff(data["staffID"], data["email"], data["firstname"], data["lastname"], data["password"], data["te"])
     if(user):
