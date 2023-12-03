@@ -9,6 +9,7 @@ from .review import Review
 class Staff(db.Model, UserMixin):
   __tablename__ = 'staff'
   ID = db.Column(db.String(10), primary_key=True)
+  staff_id = db.Column(db.String(120), nullable=False)
   email = db.Column(db.String(120), nullable=False)
   firstname = db.Column(db.String(120), nullable=False)
   lastname = db.Column(db.String(120), nullable=False)
@@ -25,7 +26,7 @@ class Staff(db.Model, UserMixin):
 
 
   def __init__(self, staffID, firstname, lastname, password, email,teachingExperience):
-    self.ID = staffID
+    self.staff_id = staffID
     self.email = email
     self.firstname = firstname
     self.lastname = lastname
@@ -83,7 +84,7 @@ class Staff(db.Model, UserMixin):
   #return staff details on json format
   def to_json(self):
     return {
-        "staffID": self.ID,
+        "staffID": self.staff_id,
         "firstname": self.firstname,
         "lastname": self.lastname,
         "email": self.email,

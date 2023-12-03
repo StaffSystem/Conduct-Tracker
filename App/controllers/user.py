@@ -25,7 +25,7 @@ def create_user(firstname, lastname, password):
     return new_admin
 
 def get_staff(staffID):
-    return Staff.query.filter_by(ID=staffID).first()
+    return Staff.query.filter_by(staff_id=staffID).first()
 
 
 def get_student(studentID):
