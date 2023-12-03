@@ -1,7 +1,8 @@
 from flask_login import current_user, login_required
 from flask_jwt_extended import current_user as jwt_current_user
-from App.controllers.review import get_review, get_reviews
-from App.controllers.staff import create_review
+from App.controllers.review import deleteReview, get_review, get_reviews, get_reviews_of_student
+from App.controllers.staff import create_review, search_staff
+from App.controllers.student import get_student
 from App.models import Upvote
 from App.models.review import Review
 from App.models.staff import Staff
@@ -203,7 +204,7 @@ def SearchStaff(staff_id):
 @systemTest.command("getReviews")
 @click.argument("studentid", default="1")
 def GetReviews(studentid):
-    reviews = get_reviews_of_student(studentID)
+    reviews = get_reviews_of_student(studentid)
     if reviews:
         print("Reviews retrieved")
     else:
@@ -212,9 +213,9 @@ def GetReviews(studentid):
 
 #get specific review
 @systemTest.command("getReview")
-@click.argument("reviewID", default="1")
-def GetReview(reviewID):
-    review = get_review(reviewID)
+@click.argument("reviewid", default="1")
+def GetReview(reviewid):
+    review = get_review(reviewid)
     if review:
         print("Review retrieved")
     else:
@@ -223,14 +224,14 @@ def GetReview(reviewID):
 
 #flask system editReview
 @systemTest.command("editReview")
-@click.argument("reviewid")
-@click.argument("staffid")
+@click.argument("reviewid",default=1)
+@click.argument("staffid",default=1)
 @click.argument("is_positive", default="true")
 @click.argument("comment", default="test")
 def editReview(reviewid, staffid, is_positive, comment):
     reviewfound = get_review(reviewid)
-    stafffound = search_staff(staff_id)
-    rev = editReview(review, staff, is_positive, comment)
+    stafffound = search_staff(staffid)
+    rev = editReview(reviewfound, stafffound, is_positive, comment)
     if rev:
         print("Review Edited")
 
@@ -239,9 +240,9 @@ def editReview(reviewid, staffid, is_positive, comment):
 @systemTest.command("deleteReview")
 @click.argument("reviewid")
 @click.argument("staffid")
-def DeleteReview(review, staff):
+def DeleteReview(reviewid, staffid):
     review = get_review(reviewid)
-    staff = search_staff(staff_id)
+    staff = search_staff(staffid)
     dele = deleteReview(review, staff)
     if dele: 
         print("Review Deleted")
