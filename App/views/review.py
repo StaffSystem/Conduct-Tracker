@@ -35,17 +35,17 @@ def view_review(review_id):
 
 #Route to upvote review 
 @review_views.route('/review/<int:review_id>/upvote', methods=['POST'])
-@jwt_required()
+# @jwt_required()
 def upvote (review_id):
-    if not jwt_current_user or not isinstance(jwt_current_user, Staff):
-      return "You are not authorized to upvote this review", 401
-      
+    # if not jwt_current_user or not isinstance(jwt_current_user, Staff):
+    #   return "You are not authorized to upvote this review", 401
+    data=request.json
     review= get_review(review_id) 
     if review:
-        staff = get_staff(jwt_current_user.ID)
+        staff = get_staff(data['staffId'])
         if staff:
             current = review.upvotes
-            new_votes= upvoteReview(review_id, staff)
+            new_votes= Upvote.vote(review_id, staff)
             if new_votes == current: 
                return jsonify(review.to_json(), 'Review Already Upvoted'), 201 
             else:
@@ -81,7 +81,7 @@ def downvote (review_id):
 @review_views.route("/student/<string:student_id>/reviews", methods=["GET"])
 def get_reviews_of_student(student_id):
     if search_student(student_id):
-        reviews = get_reviews_for_student(student_id)
+        reviews = review.get_reviews_of_student(student_id)
         if reviews:
             return jsonify([review.to_json() for review in reviews]), 200
         else:

@@ -1,5 +1,4 @@
 from App.database import db
-from App.models import Downvote, Upvote
 from App.models import VotingStrategy
 from .student import Student
 from datetime import datetime

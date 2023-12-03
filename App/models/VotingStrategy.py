@@ -10,7 +10,6 @@ class VotingStrategy(ABC):
     
 class Upvote(VotingStrategy):
     def vote(self,review):
-        print("IN UPVOTE")
         if review in review.reviewUpvoters:  # if they upvoted the review already, return current votes
             return review.upvotes
         else:
