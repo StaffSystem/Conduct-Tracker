@@ -131,18 +131,19 @@ def review_edit(review_id):
 
 # Route to delete a review
 @review_views.route("/review/delete/<int:review_id>", methods=["DELETE"])
-@jwt_required()
+# @jwt_required()
 def review_delete(review_id):
     review = get_review(review_id)
     if not review:
       return "Review not found", 404
 
-    if not jwt_current_user or not isinstance(jwt_current_user, Staff) or review.reviewerID != jwt_current_user.ID :
-      return "You are not authorized to delete this review", 401
+    # if not jwt_current_user or not isinstance(jwt_current_user, Staff) or review.reviewerID != jwt_current_user.ID :
+    #   return "You are not authorized to delete this review", 401
 
-    staff = get_staff(jwt_current_user.ID)
+    data=request.json
+    staff = get_staff(data['staffId'])
    
-    if delete_review(review, staff):
+    if deleteReview(review, staff):
         return "Review deleted successfully", 200
     else:
         return "Issue deleting review", 400
