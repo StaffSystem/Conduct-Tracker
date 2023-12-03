@@ -4,7 +4,6 @@ from flask_login import current_user
 from App.controllers import Review, Staff
 from App.controllers.user import get_staff
 from App.controllers.student import search_student
-from App.controllers import review
 
 from App.controllers.review import (
     get_reviews_from_staff,
@@ -19,24 +18,19 @@ from App.controllers.review import (
 review_views = Blueprint("review_views", __name__, template_folder='../templates')
 
 # Route to list all reviews (you can customize this route as needed)
-
-
-
-
-@review_views.route('/<string:student_id>/reviews', methods=['GET'])
-def list_reviews(student_id):
-    reviews = review.get_reviews_of_student(student_id)
+@review_views.route('/reviews', methods=['GET'])
+def list_reviews():
+    reviews = get_reviews()
     return jsonify([review.to_json() for review in reviews]), 200
 
 # Route to view a specific review and vote on it
-@review_views.route('/myreviews', methods=['GET',])
+@review_views.route('/review/<int:review_id>', methods=['GET',])
 def view_review(review_id):
     review = get_review(review_id)
-
-    # if review:
-    #     return jsonify(review.to_json())
-    # else: 
-    #     return 'Review does not exist', 404
+    if review:
+        return jsonify(review.to_json())
+    else: 
+        return 'Review does not exist', 404
 
 #Route to upvote review 
 @review_views.route('/review/<int:review_id>/upvote', methods=['POST'])
@@ -86,7 +80,7 @@ def downvote (review_id):
 @review_views.route("/student/<string:student_id>/reviews", methods=["GET"])
 def get_reviews_of_student(student_id):
     if search_student(student_id):
-        reviews = review.get_reviews_of_student(student_id)
+        reviews = get_reviews_for_student(student_id)
         if reviews:
             return jsonify([review.to_json() for review in reviews]), 200
         else:
@@ -97,7 +91,7 @@ def get_reviews_of_student(student_id):
 @review_views.route("/staff/<string:staff_id>/reviews", methods=["GET"])
 def get_reviews_from_staff(staff_id):
     if get_staff(str(staff_id)):
-        reviews = review.get_reviews_from_staff(staff_id)
+        reviews = get_reviews_by_staff(staff_id)
         if reviews:
             return jsonify([review.to_json() for review in reviews]), 200
         else:
@@ -150,4 +144,3 @@ def review_delete(review_id):
         return "Review deleted successfully", 200
     else:
         return "Issue deleting review", 400
-

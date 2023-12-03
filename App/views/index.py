@@ -21,11 +21,9 @@ def generate_random_contact_number():
 def init():
   db.drop_all()
   db.create_all()
-
   for ID in range(50, 150): 
       contact= generate_random_contact_number()
       student= create_student( str(ID),
-          randomname.get_name(), 
           randomname.get_name(), 
           randomname.get_name(),
           contact,

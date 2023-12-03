@@ -29,7 +29,8 @@ def get_staff(staffID):
 
 
 def get_student(studentID):
-    return Student.query.filter_by(ID=studentID).first()
+    student=Student.query.filter_by(ID=studentID).first()
+    return student
 
 def get_admin(adminID):
     return Admin.query.filter_by(ID=adminID).first()
