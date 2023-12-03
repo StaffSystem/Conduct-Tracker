@@ -1,5 +1,6 @@
 from flask_login import current_user, login_required
 from flask_jwt_extended import current_user as jwt_current_user
+from App.controllers.auth import login
 from App.controllers.review import deleteReview, get_review, get_reviews, get_reviews_of_student
 from App.controllers.staff import create_review, search_staff
 from App.controllers.student import get_student
