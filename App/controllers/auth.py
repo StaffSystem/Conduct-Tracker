@@ -13,6 +13,12 @@ def jwt_authenticate(email, password):
     
   return None
 
+def jwt_authenticate_admin(id, password):
+  staff = Staff.query.filter_by(ID=id).first()
+  if staff and staff.check_password(password):
+    return create_access_token(identity=id)
+    
+  return None
 
 def login(email, password):    
     staff = Staff.query.filter_by(email=email).first()

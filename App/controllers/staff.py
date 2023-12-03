@@ -2,14 +2,21 @@ from App.controllers.user import get_staff
 from App.models import Staff, Student, Review, Karma
 from App.database import db
 
+
 def create_review(staffID, studentID, is_positive, comment):
+<<<<<<< HEAD
     staff = Staff.query.filter_by(staff_id=staffID).first()
+=======
+    staff = Staff.query.filter_by(ID=staffID).first()
+>>>>>>> e28dd87 (got tests to work)
     student = Student.query.filter_by(ID=studentID).first()
 
-    if staff and student:
+    if staff or student:
         review = staff.createReview(staff,student,is_positive, comment)
         return review
     return None
+
+
 
 
 def get_staff_reviews(staff_id):
@@ -69,5 +76,5 @@ def editStaff(firstname, lastname, email, password, te):
         staff.teachingExperience = te
         db.session.add(staff)
         db.session.commit()
-        return review
+        return staff
     return None

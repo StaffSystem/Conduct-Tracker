@@ -1,4 +1,4 @@
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, logout_user
 from flask_jwt_extended import current_user as jwt_current_user
 from App.controllers.auth import login
 from App.controllers.review import deleteReview, get_review, get_reviews, get_reviews_of_student
@@ -108,7 +108,9 @@ def Login(email,password):
 #flask system logout
 @systemTest.command("logoutStaff")
 def Logout():
-    pass
+    if logout_user():
+        print("Logged out")
+    
 
 
 #flask system addStudent
