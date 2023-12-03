@@ -4,6 +4,7 @@ from flask_login import current_user
 from App.controllers import Review, Staff
 from App.controllers.user import get_staff
 from App.controllers.student import search_student
+from App.controllers import review
 
 from App.controllers.review import (
     get_reviews_from_staff,
@@ -91,7 +92,7 @@ def get_reviews_of_student(student_id):
 @review_views.route("/staff/<string:staff_id>/reviews", methods=["GET"])
 def get_reviews_from_staff(staff_id):
     if get_staff(str(staff_id)):
-        reviews = get_reviews_by_staff(staff_id)
+        reviews = review.get_reviews_from_staff(staff_id)
         if reviews:
             return jsonify([review.to_json() for review in reviews]), 200
         else:
