@@ -86,7 +86,7 @@ def downvote (review_id):
 @review_views.route("/student/<string:student_id>/reviews", methods=["GET"])
 def get_reviews_of_student(student_id):
     if search_student(student_id):
-        reviews = get_reviews_for_student(student_id)
+        reviews = review.get_reviews_of_student(student_id)
         if reviews:
             return jsonify([review.to_json() for review in reviews]), 200
         else:
