@@ -26,7 +26,7 @@ def get_staff_email(email):
 
 
 def search_staff(staff_id):
-    found = Staff.query.filter_by(ID=staff_id).first()
+    found = Staff.query.filter_by(staff_id=staff_id).first()
     if(found):
         return found
     else:
@@ -47,20 +47,17 @@ def search_students_searchTerm(staff, searchTerm):
     return None
 
 
-def create_staff(staffID,email,firstname,lastname,password,te):
-    new_staff = addStaff(staff_id=staffID, firstname=firstname, lastname=lastname, password=password, email=email, teachingExperience=te)
-    
-    if new_staff:
-            return new_staff
-    return None
+def create_staff(staffID, email, firstname, lastname, password, te):
+    new_staff = add_staff(staffID, email, firstname, lastname, password, te)
+    return new_staff
 
+def add_staff(staff_id, email, firstname, lastname, password, teachingExperience):
+    new_staff = Staff(staff_id=staff_id, email=email, firstname=firstname, lastname=lastname, password=password, teachingExperience=teachingExperience)
 
-def addStaff(id, firstname, lastname, password, email, teachingExperience):
-    newStaff = Staff(id, firstname, lastname, password, email, teachingExperience)
-
-    db.session.add(newStaff)
+    db.session.add(new_staff)
     db.session.commit()
-    return newStaff
+    
+    return new_staff
 
 def editStaff(firstname, lastname, email, password, te):
     staff = search_staff(staff_id)

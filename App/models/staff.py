@@ -8,7 +8,7 @@ from .review import Review
 
 class Staff(db.Model, UserMixin):
   __tablename__ = 'staff'
-  ID = db.Column(db.String(10), primary_key=True)
+  ID = db.Column(db.Integer, primary_key=True)
   staff_id = db.Column(db.String(120), nullable=False)
   email = db.Column(db.String(120), nullable=False)
   firstname = db.Column(db.String(120), nullable=False)
@@ -25,8 +25,8 @@ class Staff(db.Model, UserMixin):
     return check_password_hash(self.password, password)
 
 
-  def __init__(self, staffID, firstname, lastname, password, email,teachingExperience):
-    self.staff_id = staffID
+  def __init__(self, staff_id, firstname, lastname, password, email,teachingExperience):
+    self.staff_id = staff_id
     self.email = email
     self.firstname = firstname
     self.lastname = lastname
