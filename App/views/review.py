@@ -29,13 +29,14 @@ def list_reviews(student_id):
     return jsonify([review.to_json() for review in reviews]), 200
 
 # Route to view a specific review and vote on it
-@review_views.route('/review/<int:review_id>', methods=['GET',])
+@review_views.route('/myreviews', methods=['GET',])
 def view_review(review_id):
     review = get_review(review_id)
-    if review:
-        return jsonify(review.to_json())
-    else: 
-        return 'Review does not exist', 404
+
+    # if review:
+    #     return jsonify(review.to_json())
+    # else: 
+    #     return 'Review does not exist', 404
 
 #Route to upvote review 
 @review_views.route('/review/<int:review_id>/upvote', methods=['POST'])
@@ -96,7 +97,7 @@ def get_reviews_of_student(student_id):
 @review_views.route("/staff/<string:staff_id>/reviews", methods=["GET"])
 def get_reviews_from_staff(staff_id):
     if get_staff(str(staff_id)):
-        reviews = get_reviews_by_staff(staff_id)
+        reviews = review.get_reviews_from_staff(staff_id)
         if reviews:
             return jsonify([review.to_json() for review in reviews]), 200
         else:
