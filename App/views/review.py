@@ -101,18 +101,19 @@ def get_reviews_from_staff(staff_id):
 
 # Route to edit a review
 @review_views.route("/review/edit/<int:review_id>", methods=["PUT"])
-@jwt_required()
+# @jwt_required()
 def review_edit(review_id):
     review = get_review(review_id)
     if not review:
       return "Review not found", 404
       
-    if not jwt_current_user or not isinstance(jwt_current_user, Staff) or review.reviewerID != jwt_current_user.ID :
-      return "You are not authorized to edit this review", 401
+    # if not jwt_current_user or not isinstance(jwt_current_user, Staff) or review.reviewerID != jwt_current_user.ID :
+    #   return "You are not authorized to edit this review", 401
 
-    staff = get_staff(jwt_current_user.ID)
+    data=request.json
 
-    data = request.json
+    staff = get_staff(data['staffId'])
+
 
     if not data['comment']:
         return "Invalid request data", 400
@@ -120,7 +121,7 @@ def review_edit(review_id):
     if data['isPositive'] not in (True, False):
         return jsonify({"message": f"invalid Positivity value  ({data['isPositive']}). Positive: true or false"}), 400
 
-    updated= edit_review(review, staff, data['isPositive'], data['comment'])
+    updated= editReview(review, staff, data['isPositive'], data['comment'])
     if updated: 
       return jsonify(review.to_json(), 'Review Edited'), 200
     else:
