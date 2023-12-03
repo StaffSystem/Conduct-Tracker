@@ -4,6 +4,7 @@ from flask_login import current_user
 from App.controllers import Review, Staff
 from App.controllers.user import get_staff
 from App.controllers.student import search_student
+from App.controllers import review
 
 from App.controllers.review import (
     get_reviews_from_staff,
@@ -22,9 +23,9 @@ review_views = Blueprint("review_views", __name__, template_folder='../templates
 
 
 
-@review_views.route('/reviews', methods=['GET'])
-def list_reviews():
-    reviews = get_reviews()
+@review_views.route('/<string:student_id>/reviews', methods=['GET'])
+def list_reviews(student_id):
+    reviews = review.get_reviews_of_student(student_id)
     return jsonify([review.to_json() for review in reviews]), 200
 
 # Route to view a specific review and vote on it

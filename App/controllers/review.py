@@ -1,7 +1,7 @@
 from App.models import Review, Karma, Student
 from App.database import db
 
-def get_reviews(): 
+def get_reviews(student_id): 
     return db.session.query(Review).all()
 
 
