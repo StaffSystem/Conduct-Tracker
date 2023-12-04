@@ -7,7 +7,7 @@ from App.controllers.user import get_staff, get_student
 from App.database import db
 from flask_jwt_extended import current_user as jwt_current_user
 from flask_jwt_extended import jwt_required
-from App.controllers import staff
+from App.controllers import staff,student
 
 from App.controllers.staff import (
     search_students_searchTerm, 
@@ -63,4 +63,15 @@ def create_review_action(student_id):
     if review:
         return jsonify(review.to_json()), 201
     return 'Failed to create review', 400
+@staff_views.route('/searchStudent',methods=["GET"])
+# @login_required
+def searchStudent():
+    data=request.get_json()
+    requested_student=student.get_student(data["id"])
+    if(requested_student):
+        print(requested_student.to_json())
+        return jsonify({"message": "Student Found", **requested_student.to_json()}),201
+    else:
+        return jsonify({"message": "Invalid Student Id Given"}),400
+
 
