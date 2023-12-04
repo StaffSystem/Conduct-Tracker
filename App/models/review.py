@@ -36,7 +36,7 @@ class Review(db.Model):
 
   # initialize the review. when it is created the date is automatically gotten and votes are at 0
   def __init__(self, reviewer, student, isPositive, comment):
-    self.reviewerID = reviewer.ID
+    self.reviewerID = reviewer.staff_id
     self.reviewer = reviewer
     self.studentID = student.ID
     self.isPositive = isPositive

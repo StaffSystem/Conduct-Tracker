@@ -7,7 +7,7 @@ def create_review(staffID, studentID, is_positive, comment):
     staff = Staff.query.filter_by(ID=staffID).first()
     student = Student.query.filter_by(ID=studentID).first()
 
-    if staff or student:
+    if staff and student:
         review = staff.createReview(staff,student,is_positive, comment)
         return review
     return None
@@ -37,8 +37,11 @@ def search_staff(staff_id):
 
 
 def create_student(studentID, firstname, lastname, contact, studentType, program):
-    new_student = Student(studentID, firstname=firstname, lastname=lastname, contact=contact, studentType=studentType, program=program)
+    new_student = Student(studentID=studentID, firstname=firstname, lastname=lastname, contact=contact, studentType=studentType, program=program)
+    
     if new_student:
+        db.session.add(new_student)
+        db.session.commit()
         return new_student
     return None
 

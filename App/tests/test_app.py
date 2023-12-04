@@ -36,8 +36,8 @@ class UserUnitTests(unittest.TestCase):
         assert newAdmin.firstname == "Bob" and newAdmin.lastname == "Boblast"
 
     def test_new_staff (self):
-        newStaff = Staff( "342", "Bob", "Charles", "bobpass", "bob.charles@staff.com", "10")
-        assert newStaff.firstname == "Bob" and newStaff.lastname == "Charles" and newStaff.check_password("bobpass") and newStaff.ID == "342" and newStaff.email == "bob.charles@staff.com" and newStaff.teachingExperience == "10"
+        newStaff = Staff( staff_id="342", firstname="Bob", lastname="Charles", password="bobpass", email="bob.charles@staff.com", teachingExperience="10")
+        assert newStaff.firstname == "Bob" and newStaff.lastname == "Charles" and newStaff.check_password("bobpass") and newStaff.staff_id == "342" and newStaff.email == "bob.charles@staff.com" and newStaff.teachingExperience == "10"
 
     def test_new_student (self):
         newStudent = Student( studentID="813", firstname="Joe", lastname="Dune",contact= "0000-653-4343",studentType= "Full-Time",program= "2")
@@ -114,7 +114,7 @@ class UsersIntegrationTests(unittest.TestCase):
         assert newStaff.firstname == "Bob" 
         assert newStaff.lastname == "Charles" 
         assert newStaff.check_password("bobpass") 
-        assert newStaff.ID == "342" 
+        assert newStaff.staff_id == "342" 
         assert newStaff.email == "bob.charles@staff.com" 
         assert newStaff.teachingExperience == 10
 
@@ -149,11 +149,11 @@ class UsersIntegrationTests(unittest.TestCase):
     def test_create_review(self): 
         admin = create_user("rev", "revlast", "revpass")
         staff = create_staff(firstname="Jon", lastname="Den", password="password", staffID= "546", email="john@example.com",te= 5)
-        student = create_student(studentID="2", firstname="Jim", lastname="Lee", contact="000-144-4145", studentType="Full-time",program= 1)
-        review = create_review(staff.ID, student.ID, True, "This is a great review")
+        student = create_student(studentID="2", firstname="Jim", lastname="Lee", contact="000-144-4145", studentType="Full-time",program= "1")
+        review = create_review(staffID=staff.ID,studentID= student.ID, is_positive=True, comment="This is a great review")
         assert admin and staff and student
         assert review.reviewerID == staff.ID
-        assert review.studentID == student.ID 
+        assert review.studentID == student.ID
         assert review.isPositive == True 
         assert review.comment == "This is a great review"
 
