@@ -4,11 +4,7 @@ from App.database import db
 
 
 def create_review(staffID, studentID, is_positive, comment):
-<<<<<<< HEAD
-    staff = Staff.query.filter_by(staff_id=staffID).first()
-=======
     staff = Staff.query.filter_by(ID=staffID).first()
->>>>>>> e28dd87 (got tests to work)
     student = Student.query.filter_by(ID=studentID).first()
 
     if staff or student:
