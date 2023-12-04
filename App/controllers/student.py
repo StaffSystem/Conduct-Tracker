@@ -20,6 +20,8 @@ def update_student(studentID,fname,lname):
     student=Student.query.filter_by(id=studentID).first
     if student:
         student.edit_name(fname,lname);
+        # db.session.add(student)
+        # db.session.commit()
         return student
     return None
 

@@ -26,6 +26,8 @@ class Review(db.Model):
   reviewer = db.relationship('Staff', backref=db.backref('reviews_created',lazy='joined'),foreign_keys=[reviewerID])
   studentID = db.Column(db.String(10), db.ForeignKey('student.ID'))
   staffUpvoters = db.relationship('Staff',secondary=review_staff_upvoters,backref=db.backref('reviews_upvoted',lazy='joined'))  #for staff who have voted on the review
+  # staffDownvoters = db.relationship('Staff',secondary=review_staff_downvoters,backref=db.backref('reviews_downvoted',lazy='joined'))  #for staff who have voted on the review
+  
   upvotes = db.Column(db.Integer, nullable=False)
   downvotes = db.Column(db.Integer, nullable=False)
   isPositive = db.Column(db.Boolean, nullable=False)
@@ -70,18 +72,18 @@ class Review(db.Model):
 
 
   #set specific voting strategy; either Upvote or Downvote
-  def setStrategy(strategy):
-      self.strategy = strategy  
+  # def setStrategy(strategy):
+  #     self.strategy = strategy  
 
 
- #execute voting based on voting strategy chosen
-  def executeStrategy(reviewer):
-      if reviewer in self.staffDownvoters:
-        setStrategy(Downvote) 
-      else:  
-        setStrategy(Upvote)
+#  #execute voting based on voting strategy chosen
+#   def executeStrategy(reviewer):
+#       if reviewer in self.staffDownvoters:
+#         setStrategy(Downvote) 
+#       else:  
+#         setStrategy(Upvote)
 
-      self.strategy.vote(reviewer)    
+#       self.strategy.vote(reviewer)    
 
 
   #return json representation of the review
