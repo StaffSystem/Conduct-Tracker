@@ -107,7 +107,6 @@ class UsersIntegrationTests(unittest.TestCase):
         newAdmin = create_user("rick", "rolast", "bobpass")
         newStudent = create_student(studentID= 813,firstname= "Joe", lastname="Dune", contact="0000-653-4343",studentType= "Full-Time", program= "2")
         assert newAdmin.firstname == "rick" and newAdmin.lastname == "rolast" and newAdmin.check_password("bobpass")
-        # assert newStudent.ID == 813 
         assert newStudent.firstname == "Joe" 
         assert newStudent.lastname == "Dune" 
         assert newStudent.contact == "0000-653-4343" 
@@ -185,8 +184,8 @@ class UsersIntegrationTests(unittest.TestCase):
 
     def test_get_reviews_for_student(self): 
         admin = create_user("Red", "redlast", "redpass")
-        staff = create_staff(admin, "Xem", "Zenm", "password", "111", "zenm@example.com", 6)
-        student = create_student(admin, "222", "Demn", "Sam", "pass01234", "demn@school.com", "Evening", 2)
+        staff = create_staff("Xem", "Zenm", "password", "111", "zenm@example.com", 6)
+        student = create_student("222", "Demn", "Sam", "pass01234", "Evening", 2)
         assert admin and staff and student
         assert create_review(staff.ID, student.ID, True, "What a good student")
         assert create_review(staff.ID,  student.ID, True, "He answers all my questions in class")
