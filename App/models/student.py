@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Student(db.Model):
 	__tablename__ = 'student'
-	ID = db.Column(db.String(10), primary_key=True)
+	ID = db.Column(db.Integer, primary_key=True)
 	firstname = db.Column(db.String(120), nullable=False)
 	lastname = db.Column(db.String(120), nullable=False)
 	contact = db.Column(db.String(30), nullable=False)
@@ -16,7 +16,6 @@ class Student(db.Model):
 
   #When student is newly created there would be no reviews or karma yet
 	def __init__(self, studentID, firstname, lastname, contact, studentType, program):
-		self.ID = studentID
 		self.firstname = firstname
 		self.lastname = lastname
 		self.contact = contact
